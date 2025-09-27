@@ -1,7 +1,6 @@
 import { currentUser } from "@clerk/nextjs/server";
 import { db } from "./db";
 
-
 export const checkUser = async () => {
     // Get the user from Clerk
     const user = await currentUser();
@@ -22,6 +21,7 @@ export const checkUser = async () => {
         return loggedInUser;
     }
 
+    // If the user does not exist, create a new user in the database with details from Clerk
     const newUser = await db.user.create({
         data: {
             clerkUserId: user.id,
